@@ -8,12 +8,12 @@
   
   
   
-  <title>Hello World | Hexo</title>
+  <title>ADB的基本使用 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, theme-bmw">
+    <meta name="keywords" content="Android,">
   
 
   <script>
@@ -197,7 +197,7 @@
 
 <div class="post">
   <h1 class="article-title">
-    <span>Hello World</span>
+    <span>ADB的基本使用</span>
   </h1>
   <div class="article-top-meta">
     <span>
@@ -207,7 +207,7 @@
     
     
       <span>
-        浏览 : <span class="article-timer" data-identity="hello-world"></span>
+        浏览 : <span class="article-timer" data-identity="ADB调试备忘"></span>
       </span>
     
   </div>
@@ -216,15 +216,52 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+      <h2 id="Android设备ADB调试备忘"><a href="#Android设备ADB调试备忘" class="headerlink" title="Android设备ADB调试备忘"></a>Android设备ADB调试备忘</h2><ul>
+<li>获取序列号： <code>adb get-serialno</code></li>
+<li>查看连接计算机的设备：<code>adb devices</code></li>
+<li>重启机器：<code>adb reboot</code></li>
+<li>重启到bootloader，即刷机模式：<code>adb reboot bootloader</code></li>
+<li>重启到recovery，即恢复模式：<code>adb reboot recovery</code></li>
+<li>查看log：<code>adb logcat</code></li>
+<li>终止adb服务进程：<code>adb kill-server</code></li>
+<li>重启adb服务进程：<code>adb start-server</code></li>
+<li>获取机器MAC地址：<code>adb shell  cat /sys/class/net/wlan0/address</code></li>
+<li>获取CPU序列号：<code>adb shell cat /proc/cpuinfo</code></li>
+<li>安装APK：<code>adb install &lt;apkfile&gt; //比如：adb install baidu.apk</code></li>
+<li>保留数据和缓存文件，重新安装apk：<code>adb install -r &lt;apkfile&gt; //比如：adb install -r baidu.apk</code></li>
+<li>安装apk到sd卡：<code>adb install -s &lt;apkfile&gt; // 比如：adb install -s baidu.apk</code></li>
+<li>卸载APK：<code>adb uninstall &lt;package&gt; //比如：adb uninstall com.baidu.search</code></li>
+<li>卸载app但保留数据和缓存文件：<code>adb uninstall -k &lt;package&gt; //比如：adb uninstall -k com.baidu.search</code></li>
+<li>启动应用：<code>adb shell am start -n &lt;package_name&gt;/.&lt;activity_class_name&gt;</code></li>
+<li>查看设备cpu和内存占用情况：<code>adb shell top</code></li>
+<li>查看占用内存前6的app：<code>adb shell top -m 6</code></li>
+<li>刷新一次内存信息，然后返回：<code>adb shell top -n 1</code></li>
+<li>查询各进程内存使用情况：<code>adb shell procrank</code></li>
+<li>杀死一个进程：<code>adb shell kill [pid]</code></li>
+<li>查看进程列表：<code>adb shell ps</code></li>
+<li>查看指定进程状态：<code>adb shell ps -x [PID]</code></li>
+<li>查看后台services信息：<code>adb shell service list</code></li>
+<li>查看当前内存占用：<code>adb shell cat /proc/meminfo</code></li>
+<li>查看IO内存分区：<code>adb shell cat /proc/iomem</code></li>
+<li>将system分区重新挂载为可读写分区：<code>adb remount</code></li>
+<li>从本地复制文件到设备：<code>adb push &lt;local&gt; &lt;remote&gt;</code></li>
+<li>从设备复制文件到本地：<code>adb pull &lt;remote&gt;  &lt;local&gt;</code></li>
+<li>列出目录下的文件和文件夹，等同于dos中的dir命令：<code>adb shell ls</code></li>
+<li>进入文件夹，等同于dos中的cd 命令：<code>adb shell cd &lt;folder&gt;</code></li>
+<li>重命名文件：<code>adb shell rename path/oldfilename path/newfilename</code></li>
+<li>删除system/avi.apk：<code>adb shell rm /system/avi.apk</code></li>
+<li>删除文件夹及其下面所有文件：<code>adb shell rm -r &lt;folder&gt;</code></li>
+<li>移动文件：<code>adb shell mv path/file newpath/file</code></li>
+<li>设置文件权限：<code>adb shell chmod 777 /system/fonts/DroidSansFallback.ttf</code></li>
+<li>新建文件夹：<code>adb shell mkdir path/foldelname</code></li>
+<li>查看文件内容：<code>adb shell cat &lt;file&gt;</code></li>
+<li>查看wifi密码：<code>adb shell cat /data/misc/wifi/*.conf</code></li>
+<li>清除log缓存：<code>adb logcat -c</code></li>
+<li>查看bug报告：<code>adb bugreport</code></li>
+<li>获取设备名称：<code>adb shell cat /system/build.prop</code></li>
+<li>查看ADB帮助：<code>adb help</code></li>
+<li>跑monkey：<code>adb shell monkey -v -p your.package.name 500</code></li>
+</ul>
 
     </div>
   </div>
@@ -236,7 +273,7 @@
         
           本文作者 : GODBMW <br>
         
-        原文链接 : <a href>http://yoursite.com/2019/05/27/hello-world/</a><br>
+        原文链接 : <a href>http://yoursite.com/2019/05/27/ADB调试备忘/</a><br>
         版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
         </blockquote>
       </div>
@@ -293,6 +330,15 @@
     <div class="article-meta pull-left">
       <span>
         
+          <i class="iconfont icon-06tags"></i>标签: 
+          
+          <span class="span--tag">
+            <a href="/tags/Android/">
+              #Android
+            </a>
+          </span>
+          
+        
       </span>
     </div>
     <div class="article-meta pull-right">
@@ -310,12 +356,12 @@
 
   <nav class="post-navigation">
     
-    
-      <div class="nav-next">
-        下一篇:
-        <a href="/2019/05/27/ADB调试备忘/" target="_self">ADB的基本使用</a>
-        <i class="iconfont icon-next"></i>
+      <div class="nav-pre">
+        <i class="iconfont icon-prev"></i>
+        上一篇:
+        <a href="/2019/05/27/hello-world/" target="_self">Hello World</a>
       </div>
+    
     
   </nav>
 
